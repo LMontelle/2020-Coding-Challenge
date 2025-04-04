@@ -44,6 +44,7 @@ function increase_score(id){
 }
 
 $(document).ready(function(){
+  console.log("Script Loaded!");
   //set up SSE connection
   const event_source = new EventSource('/stream');
   eventSource.onmessage = function(event){
