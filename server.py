@@ -71,6 +71,7 @@ def increase_score():
 
     #sorting the scoreboard before sending the data
     scoreboard.sort(key=lambda x: x['score'], reverse=True)
+    print(scoreboard)
     return jsonify(scoreboard=scoreboard)
 
 if __name__ == '__main__':
