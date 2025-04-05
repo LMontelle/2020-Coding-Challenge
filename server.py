@@ -68,7 +68,7 @@ def increase_score():
     json_data = request.get_json()   
     team_id = json_data["id"]  
 
-    print(f"Received request to increase score for team ID: {team_id}")
+    print(f"Received request to increase score for team ID")
     
     for team in scoreboard:
         if team["id"] == team_id:
