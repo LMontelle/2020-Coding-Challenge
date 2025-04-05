@@ -79,6 +79,7 @@ def increase_score():
             team["score"] += 1
 
     #sorting the scoreboard before sending the data
+    #NOTE: I referenced the sorting syntax that I normally use for datasets in Pandas
     scoreboard.sort(key=lambda x: x['score'], reverse=True)
     return jsonify(scoreboard=scoreboard)
 
