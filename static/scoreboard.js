@@ -46,8 +46,8 @@ function increase_score(id){
 $(document).ready(function(){
     //initally displaying the scoreboard when website loads
     display_scoreboard(scoreboard);
+  
     //set up SSE connection
-    
     const event_source = new EventSource('/stream');
       
     //parsing JSON data and updating/displaying the scoreboard
@@ -55,7 +55,7 @@ $(document).ready(function(){
         const updatedScoreboard = JSON.parse(event.data);
         display_scoreboard(updatedScoreboard);
     };
-
+    //error handeling for the connection between EventSource
     event_source.onerror = function(error) {
         console.error("EventSource failed:", error);
     };
