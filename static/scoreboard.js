@@ -44,14 +44,22 @@ function increase_score(id){
 }
 
 $(document).ready(function(){
-  console.log("Script Loaded!");
-  //set up SSE connection
-  const event_source = new EventSource('/stream');
-  event_source.onmessage = function(event){
-    console.log("Received event: ", event);
-    //parsing the new data for scoreboard
-    const updatedScoreboard = JSON.parse(event.data);
-    //when an update occurs, update the scoreboard
-    display_scoreboard(updatedScoreboard);
-  };
-})
+    console.log("Script Loaded!");
+    // set up SSE connection
+    try {
+        const event_source = new EventSource('/stream');
+        console.log("EventSource connected!");
+        
+        event_source.onmessage = function(event){
+            console.log("Received event: ", event);
+            const updatedScoreboard = JSON.parse(event.data);
+            display_scoreboard(updatedScoreboard);
+        };
+
+        event_source.onerror = function(error) {
+            console.error("EventSource failed:", error);
+        };
+    } catch (error) {
+        console.error("Error establishing EventSource:", error);
+    }
+});
