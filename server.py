@@ -48,14 +48,14 @@ scoreboard = [
 @app.route('/stream')
 def stream():
     def sendUpdate():
-        prevScoreboard = deepcopy(scoreboard)
+        prevScoreboard = scoreboard
         while True:
             #updating score if change was found -> user pressed button(s)
-            if prevScoreboard != deepcopy(scoreboard):
+            if prevScoreboard != scoreboard:
                 print("Sending update:")
                 #reference data from JSON format to be parsed
                 yield f"data: {json.dumps(scoreboard)}\n\n"
-                prevScoreboard = deepcopy(scoreboard)
+                prevScoreboard = scoreboard
     return Response(sendUpdate(), mimetype = 'text/event-stream')
 
 @app.route('/')
