@@ -1,5 +1,4 @@
 function display_scoreboard(scoreboard){
-  console.log("Displaying scoreboard");
   $("#teams").empty();
   $.each(scoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
@@ -45,23 +44,20 @@ function increase_score(id){
 }
 
 $(document).ready(function(){
-    console.log("Script Loaded!");
+    //initally displaying the scoreboard when website loads
     display_scoreboard(scoreboard);
     //set up SSE connection
-    try {
-        const event_source = new EventSource('/stream');
-        console.log("EventSource connected!");
-        
-        event_source.onmessage = function(event){
-            console.log("Received event: ", event);
-            const updatedScoreboard = JSON.parse(event.data);
-            display_scoreboard(updatedScoreboard);
-        };
+    
+    const event_source = new EventSource('/stream');
+      
+    //parsing JSON data and updating/displaying the scoreboard
+    event_source.onmessage = function(event){
+        const updatedScoreboard = JSON.parse(event.data);
+        display_scoreboard(updatedScoreboard);
+    };
 
-        event_source.onerror = function(error) {
-            console.error("EventSource failed:", error);
-        };
-    } catch (error) {
-        console.error("Error establishing EventSource:", error);
-    }
+    event_source.onerror = function(error) {
+        console.error("EventSource failed:", error);
+    };
+  
 });
