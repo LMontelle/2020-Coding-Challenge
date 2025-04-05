@@ -54,7 +54,7 @@ def stream():
             if prevScoreboard != scoreboard:
                 print("Sending update:")
                 #reference data from JSON format to be parsed
-                yield f"data: {json.dumps(scoreboard)}\n\n"
+                yield f"data: {json.dumps({'message': 'Hello, world!'})}\n\n"
                 prevScoreboard = scoreboard.copy()
     return Response(sendUpdate(), mimetype = 'text/event-stream')
 
