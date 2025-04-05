@@ -11,7 +11,7 @@ from flask_cors import CORS
 #to ensure the correct comparisons are being made to scoreboard
 from copy import deepcopy
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/static/*": {"origins": "*"}})
 
 scoreboard = [
     {
