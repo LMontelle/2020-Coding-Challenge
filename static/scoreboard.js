@@ -48,6 +48,7 @@ $(document).ready(function(){
   //set up SSE connection
   const event_source = new EventSource('/stream');
   event_source.onmessage = function(event){
+    console.log("Received event: ", event);
     //parsing the new data for scoreboard
     const updatedScoreboard = JSON.parse(event.data);
     //when an update occurs, update the scoreboard
