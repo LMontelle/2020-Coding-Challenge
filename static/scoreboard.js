@@ -1,4 +1,5 @@
 function display_scoreboard(scoreboard){
+  console.log("Displaying scoreboard);
   $("#teams").empty();
   $.each(scoreboard, function(index, team){
     addTeamView(team.id, team.name, team.score);
