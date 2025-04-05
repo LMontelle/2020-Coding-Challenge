@@ -4,9 +4,8 @@ This provides an easier way of seeing the changes in real-time on a smaller scal
 for server to client updates. I believe that it is useful here for checking and testing changes quickly.
 """
 import json
-from flask import Flask
-from flask import render_template
-from flask import Response, request, jsonify
+import time
+from flask import Flask, render_template, Response, request, jsonify
 from flask_cors import CORS
 #to ensure the correct comparisons are being made to scoreboard
 from copy import deepcopy
@@ -48,14 +47,18 @@ scoreboard = [
 @app.route('/stream')
 def stream():
     def sendUpdate():
-        prevScoreboard = scoreboard.copy()
+        prevScoreboard = deepcopy(scoreboard)
         while True:
+            time.sleep(1)
             #updating score if change was found -> user pressed button(s)
             if prevScoreboard != scoreboard:
                 print("Sending update:")
                 #reference data from JSON format to be parsed
-                yield f"data: {json.dumps({'message': 'Hello, world!'})}\n\n"
-                prevScoreboard = scoreboard.copy()
+                yield f"data: {{json.dumps(scoreboard)}\n\n"
+                prevScoreboard = deepcopy(scoreboard)
+            else:
+                #preventing timeout
+                yield ": keepalive\n\n"
     return Response(sendUpdate(), mimetype = 'text/event-stream')
 
 @app.route('/')
@@ -70,12 +73,11 @@ def increase_score():
 
     json_data = request.get_json()   
     team_id = json_data["id"]  
-
-    print(f"Received request to increase score for team ID")
     
     for team in scoreboard:
         if team["id"] == team_id:
             team["score"] += 1
+            break
 
     #sorting the scoreboard before sending the data
     scoreboard.sort(key=lambda x: x['score'], reverse=True)
