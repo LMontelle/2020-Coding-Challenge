@@ -54,7 +54,7 @@ def stream():
             if prevScoreboard != scoreboard:
                 print("Sending update:")
                 #reference data from JSON format to be parsed
-                yield f"data: {{json.dumps(scoreboard)}\n\n"
+                yield f"data: {json.dumps(scoreboard)}\n\n"
                 prevScoreboard = deepcopy(scoreboard)
             else:
                 #preventing timeout
