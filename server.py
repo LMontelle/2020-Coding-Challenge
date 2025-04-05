@@ -11,7 +11,7 @@ from flask_cors import CORS
 #to ensure the correct comparisons are being made to scoreboard
 from copy import deepcopy
 app = Flask(__name__)
-CORS(app, resources={r"/static/*": {"origins": "*"}})
+CORS(app, resources={r"/api/*": {"origins": "*", "methods": ["GET", "POST"]}})
 
 scoreboard = [
     {
@@ -69,7 +69,7 @@ def increase_score():
     json_data = request.get_json()   
     team_id = json_data["id"]  
 
-    #print(f"Received request to increase score for team ID")
+    print(f"Received request to increase score for team ID")
     
     for team in scoreboard:
         if team["id"] == team_id:
