@@ -28,7 +28,7 @@ function increase_score(id){
   var team_id = {"id": id}
   $.ajax({
     type: "POST",
-    url: "increase_score",                
+    url: "/increase_score",                
     dataType : "json",
     contentType: "application/json; charset=utf-8",
     data : JSON.stringify(team_id),
@@ -46,7 +46,8 @@ function increase_score(id){
 
 $(document).ready(function(){
     console.log("Script Loaded!");
-    // set up SSE connection
+    display_scoreboard(scoreboard);
+    //set up SSE connection
     try {
         const event_source = new EventSource('/stream');
         console.log("EventSource connected!");
