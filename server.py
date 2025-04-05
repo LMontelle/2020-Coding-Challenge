@@ -3,6 +3,7 @@ For implementing real-time changes to the front-end of the website, I decided to
 This provides an easier way of seeing the changes in real-time on a smaller scale, while still allowing 
 for server to client updates. I believe that it is useful here for checking and testing changes quickly.
 """
+from flask_cors import CORS
 import json
 from flask import Flask
 from flask import render_template
@@ -10,6 +11,7 @@ from flask import Response, request, jsonify
 #to ensure the correct comparisons are being made to scoreboard
 from copy import deepcopy
 app = Flask(__name__)
+CORS(app)
 
 scoreboard = [
     {
