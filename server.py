@@ -7,11 +7,11 @@ import json
 from flask import Flask
 from flask import render_template
 from flask import Response, request, jsonify
-from flask_cors import CORS
+#from flask_cors import CORS
 #to ensure the correct comparisons are being made to scoreboard
 from copy import deepcopy
 app = Flask(__name__)
-CORS(app)
+#CORS(app)
 
 scoreboard = [
     {
