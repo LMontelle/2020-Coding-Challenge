@@ -64,6 +64,7 @@ def show_scoreboard():
 
 @app.route('/increase_score', methods=['GET', 'POST'])
 def increase_score():
+    print("Received POST request to increase score!")
     global scoreboard
 
     json_data = request.get_json()   
