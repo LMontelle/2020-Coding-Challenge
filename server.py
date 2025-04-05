@@ -52,6 +52,7 @@ def stream():
         while True:
             #updating score if change was found -> user pressed button(s)
             if prevScoreboard != scoreboard:
+                print("Sending update:")
                 #reference data from JSON format to be parsed
                 yield f"data: {json.dumps(scoreboard)}\n\n"
                 prevScoreboard = deepcopy(scoreboard)
